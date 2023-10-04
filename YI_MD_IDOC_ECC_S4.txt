@@ -1,0 +1,44 @@
+@Metadata.layer: #PARTNER
+annotate view YI_IDOC_ECC_S4
+    with 
+{
+    @UI.selectionField: [ { position: 10 } ]
+    @Consumption.semanticObject: 'ZMENU_RE'
+    //@UI.identification: [{ position: 10, type: #WITH_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display' }]    
+    @UI.lineItem: [{ importance: #HIGH, position: 10, qualifier:'ordIDOCView', label: 'IDOC num' }]
+    docnum;
+     @UI.selectionField: [ { position: 20 } ]
+     @UI.lineItem:  [{ position: 20, qualifier:'ordIDOCView', label: 'Data' }]
+     //@UI.dataFieldDefault: [{url: 'www.google.com', type: #WITH_URL, label: 'Link to' }]
+      credat;
+     @UI.lineItem:  [{ position: 30, qualifier:'ordIDOCView', label: 'Hora' }]      
+      cretim;
+
+     //@Consumption.hidden: true
+     @UI.lineItem:  [{ qualifier:'ordIDOCView', label: 'Counter' }]
+      counter;
+     @UI.lineItem:  [{ qualifier:'ordIDOCView', label: 'Segnum' }]
+     //@Consumption.hidden: true
+      segnum;
+
+  @UI.dataPoint: {
+    title: 'Status',
+    targetValueElement: 'status',
+    criticality: 'cor_status'
+  }    
+   
+        @UI.lineItem:  [{ position: 40, qualifier:'ordIDOCView', label: 'status', type: #AS_DATAPOINT }]
+        status;
+
+        @UI.lineItem:  [{ position: 45, qualifier:'ordIDOCView', type: #WITH_INTENT_BASED_NAVIGATION, semanticObjectAction: 'display'  }]
+        //@UI.hidden: true
+        cor_status;
+
+   
+      @UI.lineItem:  [{ position: 50, qualifier:'ordIDOCView', label: 'Doc ECC' }]
+      doc_ecc;
+
+      @UI.lineItem:  [{ position: 60, qualifier:'ordIDOCView', label: 'Doc ECC' }]
+      tcode_ecc;
+    
+}

@@ -1,0 +1,36 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+@EndUserText.label: 'Mensagens IDOC entre ECC e S/4'
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@OData.publish: true
+define view entity YI_IDOC_SUM
+  as select from edidc
+  association [0..1] to edid4 on edidc.docnum = edid4.docnum  
+  association [0..1] to edids on edidc.docnum = edids.docnum    
+{
+      key edidc.credat,
+      cast( 
+      sum( case
+        when edidc.direct = '1' then 1 else 0 end
+        ) as abap.int4 ) as saidas,
+      cast( 
+      sum( case
+        when edidc.direct = '2' then 1 else 0 end
+        ) as abap.int4 ) as entradas
+}
+where
+       edidc.mestyp = 'FIDCC1'
+  and  edid4.segnam = 'E1FIKPF'
+  and  edidc.credat between concat(substring($session.system_date, 1, 6), '01') and $session.system_date
+  and(
+       edids.status = '51'
+    or edids.status = '29'
+    or edids.status = '53'
+    or edids.status = '03'
+  )
+group by edidc.credat

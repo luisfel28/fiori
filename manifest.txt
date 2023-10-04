@@ -1,0 +1,224 @@
+{
+  "_version": "1.28.0",
+  "sap.app": {
+    "id": "yidoccards.com.yidoccards",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:ovp",
+      "version": "1.11.0",
+      "toolsId": "7bc3770b-5c8a-4e33-94b3-27567077b113"
+    },
+    "dataSources": {
+      "mainServiceSum": {
+        "uri": "/sap/opu/odata/sap/YI_IDOC_SUM_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "YI_IDOC_SUM_CDS_VAN",
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/YI_IDOC_ECC_S4_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "YI_IDOC_ECC_S4_CDS_VAN",
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YI_IDOC_ECC_S4_CDS_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='YI_IDOC_ECC_S4_CDS_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/YI_IDOC_ECC_S4_CDS_VAN.xml"
+        }
+      },
+      "YI_IDOC_SUM_CDS_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='YI_IDOC_SUM_CDS_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/YI_IDOC_SUM_CDS_VAN.xml"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.84.7",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.f": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ovp": {},
+        "sap.ui.rta": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "yidoccards.com.yidoccards.i18n.i18n"
+        }
+      },
+      "mainModel": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "useBatch": false,
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "mainModelSum": {
+        "dataSource": "mainServiceSum",
+        "preload": true,
+        "settings": {
+          "useBatch": false,
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [],
+      "targets": {}
+    }
+  },
+  "sap.ovp": {
+    "globalFilterModel": "mainModel",
+    "globalFilterEntityType": "YI_IDOC_ECC_S4Type",
+    "containerLayout": "resizable",
+    "enableLiveFilter": true,
+    "considerAnalyticalParameters": false,
+    "cards": {
+      "card01": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Entradas",
+          "subTitle": "Mensagens ECC >> S/4",
+          "entitySet": "YI_IDOC_ECC_S4",
+          "listType": "extended",
+          "listFlavor": "standard",
+          "sortBy": "docnum",
+          "sortOrder": "descending",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#ordIDOCView",
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#ordIDOCViewFilterEntradas",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ordIDOCViewFilterEntradas",
+          "addODataSelect": true,
+          "stopResizing": false,
+          "containerLayout": "resizable",
+          "defaultSpan": {
+            "rows": 1,
+            "cols": 1,
+            "showOnlyHeader": false
+          }
+        }
+      },
+      "card03": {
+        "model": "mainModel",
+        "template": "sap.ovp.cards.list",
+        "settings": {
+          "title": "Saídas",
+          "subTitle": "Mensagens S/4 >> ECC",
+          "entitySet": "YI_IDOC_ECC_S4",
+          "listType": "extended",
+          "listFlavor": "standard",
+          "sortBy": "docnum",
+          "sortOrder": "descending",
+          "annotationPath": "com.sap.vocabularies.UI.v1.LineItem#ordIDOCView",
+          "selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#ordIDOCViewFilterSaidas",
+          "addODataSelect": true,
+          "stopResizing": false,
+          "containerLayout": "resizable",
+          "defaultSpan": {
+            "rows": 1,
+            "cols": 1,
+            "showOnlyHeader": false
+          }
+        }
+      },
+      "card02": {
+        "model": "mainModelSum",
+        "template": "sap.ovp.cards.charts.analytical",
+        "settings": {
+          "title": "Entradas X Saídas",
+          "subTitle": "Mensagens IDOC",
+          "entitySet": "YI_IDOC_SUM",
+          "selectionAnnotationPath" : "com.sap.vocabularies.UI.v1.SelectionVariant#ordIDOCViewSum",
+          "chartAnnotationPath" : "com.sap.vocabularies.UI.v1.Chart#ordIDOCViewSum",
+          "presentationAnnotationPath" : "com.sap.vocabularies.UI.v1.PresentationVariant#ordIDOCViewSum",
+          "dataPointAnnotationPath" : "com.sap.vocabularies.UI.v1.DataPoint#ordIDOCViewSum-Generic",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#ordIDOCViewSum"
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "analytical"
+  }
+}

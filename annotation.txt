@@ -1,0 +1,102 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI">
+            </edmx:Include>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/sap/YI_IDOC_ECC_S4_CDS/$metadata">
+        <edmx:Include Namespace="YI_IDOC_ECC_S4_CDS" Alias="SAP"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" >
+        <Annotations Target="YI_IDOC_ECC_S4_CDS.YI_IDOC_ECC_S4Type">
+            <Annotation Term="com.sap.vocabularies.UI.v1.Identification" Qualifier="ordIDOCViewFilterEntradas">
+              <Collection>
+
+              </Collection>
+            </Annotation>
+            <Annotation Term="com.sap.vocabularies.UI.v1.SelectionVariant" Qualifier="ordIDOCViewFilterEntradas" >
+                <Record>
+                    <PropertyValue Property="SelectOptions">
+                        <Collection>
+                            <Record>
+                            <PropertyValue Property="PropertyName" PropertyPath="direct" />
+                            <PropertyValue Property="Ranges">
+                                <Collection>
+                                    <Record>
+                                        <PropertyValue Property="Sign" EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" />
+                                        <PropertyValue Property="Option" EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeOptionType/EQ" />
+                                        <PropertyValue Property="Low" String="2" />
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            </Record>
+                        </Collection>
+                    </PropertyValue>
+                </Record>
+            </Annotation>
+            <Annotation Term="com.sap.vocabularies.UI.v1.SelectionVariant" Qualifier="ordIDOCViewFilterSaidas" >
+                <Record>
+                    <PropertyValue Property="SelectOptions">
+                        <Collection>
+                            <Record>
+                            <PropertyValue Property="PropertyName" PropertyPath="direct" />
+                            <PropertyValue Property="Ranges">
+                                <Collection>
+                                    <Record>
+                                        <PropertyValue Property="Sign" EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeSignType/I" />
+                                        <PropertyValue Property="Option" EnumMember="com.sap.vocabularies.UI.v1.SelectionRangeOptionType/EQ" />
+                                        <PropertyValue Property="Low" String="1" />
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                            </Record>
+                        </Collection>
+                    </PropertyValue>
+                </Record>
+            </Annotation>
+            </Annotations>
+            <Annotations Target="YI_IDOC_SUM_CDS.YI_IDOC_SUMType">
+            <Annotation Term="UI.Identification" Qualifier="ordIDOCViewSum">
+              <Collection>
+                <Record Type="UI.DataFieldForIntentBasedNavigation">
+                  <PropertyValue Property="SemanticObject" String="Action"/>
+                  <PropertyValue Property="Action" String="toappnavsample"/>
+                </Record>
+              </Collection>
+            </Annotation>
+            <Annotation Term="UI.Chart" Qualifier="ordIDOCViewSum">
+             <Record Type="UI.ChartDefinitionType">
+              <!--<PropertyValue Property="Title" String="Entradas x Saídas por Datas" />-->
+              <PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column" />
+              <PropertyValue Property="MeasureAttributes">
+                  <Collection>
+                   <Record Type="UI.ChartMeasureAttributeType">
+                    <PropertyValue Property="Measure" PropertyPath="entradas" />
+                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                   </Record>
+                   <Record Type="UI.ChartMeasureAttributeType">
+                    <PropertyValue Property="Measure" PropertyPath="saidas" />
+                    <PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+                   </Record>
+                  </Collection>
+                 </PropertyValue>
+                 <PropertyValue Property="DimensionAttributes">
+                  <Collection>
+                   <Record Type="UI.ChartDimensionAttributeType">
+                     <PropertyValue Property="Dimension" PropertyPath="credat" />
+                     <PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+                   </Record>
+                  </Collection>
+                 </PropertyValue>
+             </Record>
+            </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

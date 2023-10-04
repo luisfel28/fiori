@@ -1,0 +1,54 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #CHECK
+@Metadata.allowExtensions: true
+@EndUserText.label: 'Mensagens IDOC entre ECC e S/4'
+@ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+}
+@OData.publish: true
+
+define view entity YI_IDOC_ECC_S4
+  as select from edidc
+  association [0..1] to edid4 on edidc.docnum = edid4.docnum
+  association [0..1] to edids on edidc.docnum = edids.docnum  
+{
+  key edidc.docnum,
+      edidc.direct,
+      edidc.credat,
+      edidc.cretim,
+      edid4.segnam,
+      edid4.counter,
+      edid4.segnum,
+      ( case edids.status
+       when '03' then 'Sucesso'
+       when '53' then 'Sucesso'
+       when '51' then 'Erro'
+       when '29' then 'Erro'
+       end) as status,
+      ( case edids.status
+       when '29' then 1
+       when '51' then 1
+       when '03' then 3
+       when '53' then 3
+       end) as cor_status,
+      @ObjectModel.readOnly: true
+      @ObjectModel.virtualElement: true
+      @ObjectModel.virtualElementCalculatedBy: 'ABAP:YCL_IDOC'         
+      cast('' as abap.char( 26 ) ) as doc_ecc,
+      @ObjectModel.readOnly: true
+      @ObjectModel.virtualElement: true
+      @ObjectModel.virtualElementCalculatedBy: 'ABAP:YCL_IDOC'      
+      cast('' as abap.char( 26 ) ) as tcode_ecc
+      
+}
+where
+       edidc.mestyp = 'FIDCC1'
+  and  edid4.segnam = 'E1FIKPF'
+  and(
+       edids.status = '51'
+    or edids.status = '29'
+    or edids.status = '53'
+    or edids.status = '03'
+  )
